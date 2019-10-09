@@ -1,5 +1,3 @@
-<%@ page import="beans.History" %>
-<%@ page import="javax.naming.InitialContext" %>
 <%@ page import="model.Point" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="java.util.List" %><%--
@@ -10,13 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%!
-    private History history;
-%>
-<%try {
-    history = (History) new InitialContext().lookup("java:global/Lab2_war_exploded/History");
-} catch (Exception e) {
-    e.printStackTrace();}%>
+<jsp:useBean id="history" type="beans.History" scope="session"/>
 <html>
 <head>
     <meta charset="UTF-8">

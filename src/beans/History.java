@@ -2,11 +2,9 @@ package beans;
 
 import model.Point;
 
-import javax.ejb.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Singleton
 public class History {
     private List<Point> list;
 
