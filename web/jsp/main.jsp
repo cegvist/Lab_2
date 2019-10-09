@@ -65,7 +65,7 @@
     <%if (history.getList().size()>0){%>
     <h1>История запросов</h1>
     <table id="result-table">
-        <tr><th>Координата X</th><th>Координата Y</th><th>Радиус</th><th>Попадание в область</th><th>Время запроса</th></tr>
+        <tr id="table-headers"><th>Координата X</th><th>Координата Y</th><th>Радиус</th><th>Попадание в область</th><th>Время запроса</th></tr>
         <%
             List<Point> list = history.getList();
             Collections.reverse(list);
