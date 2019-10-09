@@ -18,7 +18,7 @@
 <body>
 <div class="head">
         <span id="head-title">
-            Лабораторная работа №1. Вариант 214500
+            Лабораторная работа №2. Вариант 214500
         </span>
     <img src="${pageContext.request.contextPath}/img/vt-logo.png" alt="logo"><br>
     <span id="head-author">

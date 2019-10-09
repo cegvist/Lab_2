@@ -44,7 +44,7 @@ public class AreaCheckServlet extends HttpServlet {
                     "<body>\n" +
                     "<div class=\"head\">\n" +
                     "        <span id=\"head-title\">\n" +
-                    "            Лабораторная работа №1. Вариант 214500\n" +
+                    "            Лабораторная работа №2. Вариант 214500\n" +
                     "        </span>\n" +
                     "    <img src=\"" + req.getContextPath() + "/img/vt-logo.png\" alt=\"logo\"><br>\n" +
                     "    <span id=\"head-author\">\n" +
