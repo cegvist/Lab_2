@@ -10,6 +10,7 @@ let warn_r = document.getElementsByClassName("warn-checkbox")[0];
 let submitButton = document.getElementsByClassName("submit-button")[0];
 let clearButton = document.getElementsByClassName("submit-button")[1];
 let canvas = document.getElementsByTagName("canvas")[0];
+let ctx = canvas.getContext('2d');
 let xChecked = false;
 let yChecked = false;
 let rChecked = false;
@@ -36,6 +37,11 @@ function rButtonsOnClick(event) {
     event.target.classList.add("pressed");
     rField.value = ""+event.target.value;
     checkR(event);
+    if(rChecked){
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        drawArea(Number(rField.value));
+        drawAxis();
+    }
 }
 function blockButton() {
     if (!(xChecked && yChecked && rChecked)) {
@@ -111,16 +117,13 @@ function checkX(event) {
 }
 function checkR(event) {
     if(!(rField.value==="1" || rField.value==="1.5" || rField.value==="2" || rField.value==="2.5" || rField.value==="3")){
-        event.preventDefault();
         rChecked = false;
         warn_r.hidden = false;
+        event.preventDefault();
     }
     else{
         rChecked = true;
         warn_r.hidden = true;
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-        drawArea(Number(rField.value));
-        drawAxis();
     }
     blockButton();
 }
@@ -135,75 +138,19 @@ function check(event) {
         xField.value = Number(xField.value);
     }
 }
-function drawAxis() {
-    let ctx = canvas.getContext('2d');
-    let h = canvas.height;
-    let w = canvas.width;
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(w/2, h);
-    ctx.lineTo(w/2, 0);
-    ctx.lineTo(w/2+3, 7);
-    ctx.moveTo(w/2, 0);
-    ctx.lineTo(w/2-3, 7);
-    drawDigitsX(ctx, i, w, h);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, h/2);
-    ctx.lineTo(w, h/2);
-    ctx.lineTo(w-7, h/2+3);
-    ctx.moveTo(w, h/2);
-    ctx.lineTo(w-7, h/2-3);
-    drawDigitsY(ctx, i, w, h);
-    ctx.stroke();
-}
-function drawDigitsX(ctx, i, w, h) {
-    let t=w/2;
-    for (let j=0; j<5; j++){
-        t+=i;
-        ctx.moveTo(t, h/2+3);
-        ctx.lineTo(t, h/2-3)
-    }
-    t=w/2;
-    for (let j=0; j<5; j++){
-        t-=i;
-        ctx.moveTo(t, h/2+3);
-        ctx.lineTo(t, h/2-3)
-    }
-}
-function drawDigitsY(ctx, i, w, h) {
-    let t=h/2;
-    for (let j=0; j<5; j++){
-        t+=i;
-        ctx.moveTo(w/2+3, t);
-        ctx.lineTo(w/2-3, t);
-    }
-    t=h/2;
-    for (let j=0; j<5; j++){
-        t-=i;
-        ctx.moveTo(w/2+3, t);
-        ctx.lineTo(w/2-3, t);
-    }
-}
-function drawArea(r) {
-    let ctx = canvas.getContext('2d');
-    let h = canvas.height;
-    let w = canvas.width;
-    ctx.strokeStyle = "#007765";
-    ctx.fillStyle = "#007765";
-    ctx.beginPath();
-    ctx.arc(w/2,h/2,r*i,0,Math.PI/2*3,true);
-    ctx.moveTo(w/2, h/2-r*i);
-    ctx.lineTo(w/2-r/2*i, h/2);
-    ctx.lineTo(w/2, h/2);
-    ctx.lineTo(w/2, h/2+r/2*i);
-    ctx.lineTo(w/2+r*i, h/2+r/2*i);
-    ctx.lineTo(w/2+r*i, h/2);
-    ctx.fill();
-}
 function handleCanvasClick(event) {
-    alert(""+event.target.clientWidth +" "+ event.target.clientHeight)
+    checkR(event);
+    if(rChecked){
+        let obj = event.target;
+        let x = Number(((event.pageX - window.pageXOffset - obj.getBoundingClientRect().x - obj.width/2)/i).toFixed(2));
+        let y = Number((-(event.pageY - window.pageYOffset - obj.getBoundingClientRect().y - obj.height/2)/i).toFixed(2));
+        if(x>=-5 && x<=5 && y>=-5 && y<=3){
+            xField.value = x;
+            yField.value = y;
+            doAjax(x,y)
+        }
+    }
 }
+
 
 
