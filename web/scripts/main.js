@@ -133,7 +133,7 @@ function check(event) {
     checkY(event);
     checkY(event);
     event.preventDefault();
-    doAjax(xField.value, yField.value)
+    doAjax(xField.value, yField.value, rField.value, true)
     // if (yChecked && yField.value!=="") {
     //     yField.value = Number(yField.value);
     // }
@@ -148,7 +148,7 @@ function handleCanvasClick(event) {
         let x = Number(((event.pageX - window.pageXOffset - obj.getBoundingClientRect().x - obj.width/2)/i).toFixed(2));
         let y = Number((-(event.pageY - window.pageYOffset - obj.getBoundingClientRect().y - obj.height/2)/i).toFixed(2));
         if(x>=-5 && x<=5 && y>=-5 && y<=3){
-            doAjax(x,y)
+            doAjax(x,y,rField.value, true)
         }
     }
 }

@@ -33,14 +33,21 @@ public class AreaCheckServlet extends HttpServlet {
         catch (NumberFormatException e){
             offset = 0;
         }
-        System.out.println(offset);
+
         Point point = new Point(x, y, r, offset);
-        history.addPoint(point);
         if (req.getParameter("type") != null && req.getParameter("type").equals("ajax")) {
+            history.addPoint(point);
             resp.setContentType("text/json; charset=UTF-8");
             PrintWriter out = resp.getWriter();
             out.println("{\"x\": " + point.getX() + ", \"y\": " + point.getY() + ", \"r\": " + point.getR() + ", \"inArea\": \"" + point.isInArea() + "\", \"time\": \"" + point.getTime() + "\"}");
-        } else {
+        }
+        else if(req.getParameter("type") != null && req.getParameter("type").equals("ajax-no-cache")){
+            resp.setContentType("text/json; charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.println("{\"x\": " + point.getX() + ", \"y\": " + point.getY() + ", \"r\": " + point.getR() + ", \"inArea\": \"" + point.isInArea() + "\", \"time\": \"" + point.getTime() + "\"}");
+        }
+        else {
+            history.addPoint(point);
             resp.setContentType("text/html; charset=UTF-8");
             PrintWriter out = resp.getWriter();
             out.println("<html>\n" +

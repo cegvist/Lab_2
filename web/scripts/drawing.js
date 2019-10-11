@@ -82,9 +82,13 @@ function drawPointsFromTable() {
     let table = document.getElementById("result-table");
     if(document.getElementsByTagName("tbody")[0]){table = document.getElementsByTagName("tbody")[0]}
     if(table){
-        for(let row of table.children){
-            if(row.id!=="table-headers"&&Number(row.children[2].innerText)===Number(rField.value)){
-                drawPoint(Number(row.children[0].innerText), Number(row.children[1].innerText), (row.children[3].innerText==="Да"? "lime" : "red"));
+        for(let i=0; i<table.children.length; i++){
+            let row = table.children[i];
+            if(row.id!=="table-headers"&&Number(row.children[2].innerText)!==Number(rField.value)){
+                doAjax(row.children[0].innerText, row.children[1].innerText, rField.value, false)
+            }
+            else if(row.id!=="table-headers"){
+                drawPoint(Number(row.children[0].innerText), Number(row.children[1].innerText), (row.children[3].innerText==="Да" ? "lime":"red"));
             }
         }
     }

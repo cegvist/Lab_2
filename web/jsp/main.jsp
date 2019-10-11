@@ -56,7 +56,7 @@
         <button type="button" class="submit-button" style="margin-left: 20px">Очистить</button>
     </form><br>
     <%if (history.getList().size()>0){%>
-    <h1>История запросов</h1><button type="button" onclick="clearHistory()" class="history-button">Очистить историю</button><br>
+    <h1>История запросов</h1><button type="button" onclick="clearHistory(); location.reload()" class="history-button">Очистить историю</button><br>
     <table id="result-table">
         <tr id="table-headers"><th>Координата X</th><th>Координата Y</th><th>Радиус</th><th>Попадание в область</th><th>Время запроса</th></tr>
         <%
