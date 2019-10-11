@@ -77,3 +77,15 @@ function drawPoint(x, y, color) {
     ctx.arc(canvas.width/2+x*i,canvas.height/2-y*i,2,0,Math.PI*2, true);
     ctx.fill();
 }
+
+function drawPointsFromTable() {
+    let table = document.getElementById("result-table");
+    if(document.getElementsByTagName("tbody")[0]){table = document.getElementsByTagName("tbody")[0]}
+    if(table){
+        for(let row of table.children){
+            if(row.id!=="table-headers"&&Number(row.children[2].innerText)===Number(rField.value)){
+                drawPoint(Number(row.children[0].innerText), Number(row.children[1].innerText), (row.children[3].innerText==="Да"? "lime" : "red"));
+            }
+        }
+    }
+}

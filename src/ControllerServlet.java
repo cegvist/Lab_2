@@ -10,7 +10,10 @@ public class ControllerServlet extends HttpServlet {
         if(req.getSession().getAttribute("history")==null){
             req.getSession().setAttribute("history", new History());
         }
-        if(req.getParameter("X")==null || req.getParameter("Y")==null || req.getParameter("R")==null){
+        if (req.getParameter("type") != null && req.getParameter("type").equals("clear")) {
+            req.getSession().invalidate();
+        }
+        else if(req.getParameter("X")==null || req.getParameter("Y")==null || req.getParameter("R")==null){
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/main.jsp");
             requestDispatcher.forward(req, resp);
         }

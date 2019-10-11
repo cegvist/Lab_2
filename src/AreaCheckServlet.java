@@ -12,13 +12,14 @@ public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         History history = (History) req.getSession().getAttribute("history");
-        float x;
-        float y;
-        float r;
+        double x;
+        double y;
+        double r;
+        int offset;
         try {
-            x = Float.parseFloat(req.getParameter("X"));
-            y = Float.parseFloat(req.getParameter("Y"));
-            r = Float.parseFloat(req.getParameter("R"));
+            x = Double.parseDouble(req.getParameter("X"));
+            y = Double.parseDouble(req.getParameter("Y"));
+            r = Double.parseDouble(req.getParameter("R"));
             if (x > 5 || x < -5 || y < -5 || y > 3 || (r != 1 && r != 1.5 && r != 2 && r != 2.5 && r != 3)) {
                 throw new NumberFormatException();
             }
@@ -26,7 +27,14 @@ public class AreaCheckServlet extends HttpServlet {
             resp.getWriter().println("<h1>Incorrect parameters</h1>");
             return;
         }
-        Point point = new Point(x, y, r);
+        try {
+            offset = Integer.parseInt(req.getParameter("offset"));
+        }
+        catch (NumberFormatException e){
+            offset = 0;
+        }
+        System.out.println(offset);
+        Point point = new Point(x, y, r, offset);
         history.addPoint(point);
         if (req.getParameter("type") != null && req.getParameter("type").equals("ajax")) {
             resp.setContentType("text/json; charset=UTF-8");

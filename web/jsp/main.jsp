@@ -1,6 +1,7 @@
 <%@ page import="model.Point" %>
 <%@ page import="java.util.Collections" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Вячеслав
   Date: 06.10.2019
@@ -55,11 +56,11 @@
         <button type="button" class="submit-button" style="margin-left: 20px">Очистить</button>
     </form><br>
     <%if (history.getList().size()>0){%>
-    <h1>История запросов</h1>
+    <h1>История запросов</h1><button type="button" onclick="clearHistory()" class="history-button">Очистить историю</button><br>
     <table id="result-table">
         <tr id="table-headers"><th>Координата X</th><th>Координата Y</th><th>Радиус</th><th>Попадание в область</th><th>Время запроса</th></tr>
         <%
-            List<Point> list = history.getList();
+            List<Point> list = new ArrayList<Point>(history.getList());
             Collections.reverse(list);
             for (Point p : list){%>
         <tr><td><%=p.getX()%></td><td><%=p.getY()%></td><td><%=p.getR()%></td><td><%=p.isInArea()%></td><td><%=p.getTime()%></td></tr>

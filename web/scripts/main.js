@@ -42,6 +42,7 @@ function rButtonsOnClick(event) {
         drawArea(Number(rField.value));
         drawAxis();
     }
+    drawPointsFromTable();
 }
 function blockButton() {
     if (!(xChecked && yChecked && rChecked)) {
@@ -131,12 +132,14 @@ function check(event) {
     checkR(event);
     checkY(event);
     checkY(event);
-    if (yChecked && yField.value!=="") {
-        yField.value = Number(yField.value);
-    }
-    if (xChecked && xField.value!=="") {
-        xField.value = Number(xField.value);
-    }
+    event.preventDefault();
+    doAjax(xField.value, yField.value)
+    // if (yChecked && yField.value!=="") {
+    //     yField.value = Number(yField.value);
+    // }
+    // if (xChecked && xField.value!=="") {
+    //     xField.value = Number(xField.value);
+    // }
 }
 function handleCanvasClick(event) {
     checkR(event);

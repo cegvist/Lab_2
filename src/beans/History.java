@@ -9,7 +9,7 @@ public class History {
     private List<Point> list;
 
     public History(){
-        list = new ArrayList<>();
+        list = new ArrayList<Point>();
     }
 
     public void addPoint(Point point){
